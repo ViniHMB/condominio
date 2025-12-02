@@ -6,7 +6,6 @@ import com.example.demo.domain.Quarto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -21,9 +20,8 @@ public class ClienteDTO {
     private Date dataNasc;
     private EnderecoDTO endereco;
     private String email;
-    private Integer quartoId; // apenas o ID do quarto para evitar recursão
+    private Integer quartoId;
 
-    // 🔹 Construtor que recebe a entidade
     public ClienteDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
@@ -32,7 +30,6 @@ public class ClienteDTO {
         this.telefone = cliente.getTelefone();
         this.dataNasc = cliente.getDataNasc();
         this.email = cliente.getEmail();
-
         if (cliente.getEndereco() != null) {
             Endereco e = cliente.getEndereco();
             this.endereco = new EnderecoDTO(
@@ -46,13 +43,11 @@ public class ClienteDTO {
                 e.getComplemento()
             );
         }
-
         if (cliente.getQuarto() != null) {
             this.quartoId = cliente.getQuarto().getId();
         }
     }
 
-    // 🔹 Converte DTO → Entidade
     public Cliente toEntity() {
         Cliente cliente = new Cliente();
         cliente.setId(this.id);
@@ -68,9 +63,9 @@ public class ClienteDTO {
         }
 
         if (this.quartoId != null) {
-            Quarto q = new Quarto();
-            q.setId(this.quartoId);
-            cliente.setQuarto(q);
+            Quarto quarto = new Quarto();
+            quarto.setId(this.quartoId);
+            cliente.setQuarto(quarto);
         }
 
         return cliente;

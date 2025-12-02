@@ -21,7 +21,7 @@ public class EnderecoResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EnderecoDTO> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<EnderecoDTO> buscarPorId(@PathVariable ("id") Integer id) {
         return enderecoService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -33,7 +33,7 @@ public class EnderecoResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EnderecoDTO> atualizar(@PathVariable Integer id, @RequestBody EnderecoDTO dto) {
+    public ResponseEntity<EnderecoDTO> atualizar(@PathVariable ("id") Integer id, @RequestBody EnderecoDTO dto) {
         try {
             return ResponseEntity.ok(enderecoService.update(id, dto));
         } catch (RuntimeException e) {
@@ -42,7 +42,7 @@ public class EnderecoResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+    public ResponseEntity<Void> deletar(@PathVariable ("id") Integer id) {
         enderecoService.delete(id);
         return ResponseEntity.noContent().build();
     }

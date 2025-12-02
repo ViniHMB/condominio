@@ -23,7 +23,7 @@ public class QuartoResource {
 
     // Buscar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<QuartoDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<QuartoDTO> findById(@PathVariable ("id") Integer id) {
         try {
             QuartoDTO dto = quartoService.findById(id); // retorna QuartoDTO ou lança
             return ResponseEntity.ok(dto);
@@ -40,7 +40,7 @@ public class QuartoResource {
 
     // Atualizar quarto
     @PutMapping("/{id}")
-    public ResponseEntity<QuartoDTO> atualizar(@PathVariable Integer id, @RequestBody QuartoDTO dto) {
+    public ResponseEntity<QuartoDTO> atualizar(@PathVariable ("id") Integer id, @RequestBody QuartoDTO dto) {
         try {
             return ResponseEntity.ok(quartoService.update(id, dto));
         } catch (RuntimeException e) {
@@ -50,7 +50,7 @@ public class QuartoResource {
 
     // Deletar quarto
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+    public ResponseEntity<Void> deletar(@PathVariable ("id") Integer id) {
         try {
             quartoService.delete(id);
             return ResponseEntity.noContent().build();
